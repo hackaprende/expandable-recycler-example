@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
@@ -13,5 +14,12 @@
         android:padding="16dp"
         android:textSize="20sp"
         tools:text="Comedy"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movie_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:itemCount="5"
+        tools:listitem="@layout/movie_list_item"/>
 
 </LinearLayout>

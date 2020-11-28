@@ -1,14 +1,16 @@
 package com.hackaprende.tinynetflix
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class SectionAdapter : ListAdapter<Section, SectionAdapter.ViewHolder>(DiffCallback) {
+class SectionAdapter(val context: Context) : ListAdapter<Section, SectionAdapter.ViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<Section>() {
         override fun areItemsTheSame(oldItem: Section, newItem: Section): Boolean {
@@ -34,9 +36,15 @@ class SectionAdapter : ListAdapter<Section, SectionAdapter.ViewHolder>(DiffCallb
     inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
         private val sectionNameText = view.findViewById<TextView>(R.id.section_name_text)
+        private val movieRecycler = view.findViewById<RecyclerView>(R.id.movie_recycler)
 
         fun bind(section: Section) {
             sectionNameText.text = section.name
+
+            movieRecycler.layoutManager = LinearLayoutManager(context)
+            val movieAdapter = MovieAdapter()
+            movieRecycler.adapter = movieAdapter
+            movieAdapter.submitList(section.movieList)
         }
     }
 }
