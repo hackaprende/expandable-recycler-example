@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -13,6 +14,8 @@
         android:textColor="@color/black"
         android:padding="16dp"
         android:textSize="20sp"
+        android:drawablePadding="8dp"
+        app:drawableStartCompat="@drawable/ic_baseline_arrow_drop_up_24"
         tools:text="Comedy"/>
 
     <androidx.recyclerview.widget.RecyclerView

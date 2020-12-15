@@ -41,6 +41,26 @@ class SectionAdapter(val context: Context) : ListAdapter<Section, SectionAdapter
         fun bind(section: Section) {
             sectionNameText.text = section.name
 
+            sectionNameText.setOnClickListener {
+                if (section.expanded) {
+                    sectionNameText
+                            .setCompoundDrawablesWithIntrinsicBounds(
+                                    R.drawable.ic_baseline_arrow_drop_down_24,
+                                    0, 0, 0
+                            )
+                    movieRecycler.visibility = View.GONE
+                } else {
+                    sectionNameText
+                            .setCompoundDrawablesWithIntrinsicBounds(
+                                    R.drawable.ic_baseline_arrow_drop_up_24,
+                                    0, 0, 0
+                            )
+                    movieRecycler.visibility = View.VISIBLE
+                }
+
+                section.expanded = !section.expanded
+            }
+
             movieRecycler.layoutManager = LinearLayoutManager(context)
             val movieAdapter = MovieAdapter()
             movieRecycler.adapter = movieAdapter
