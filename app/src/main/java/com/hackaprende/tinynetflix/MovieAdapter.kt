@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class MovieAdapter() : ListAdapter<Movie, MovieAdapter.ViewHolder>(
+class MovieAdapter(val onItemClickListener: (Movie) -> Unit) : ListAdapter<Movie, MovieAdapter.ViewHolder>(
         DiffCallback
     ) {
 
@@ -39,6 +39,10 @@ class MovieAdapter() : ListAdapter<Movie, MovieAdapter.ViewHolder>(
 
         fun bind(movie: Movie) {
             nameText.text = movie.name
+
+            view.setOnClickListener {
+                onItemClickListener(movie)
+            }
         }
     }
 }

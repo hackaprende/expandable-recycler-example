@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-class SectionAdapter(val context: Context) : ListAdapter<Section, SectionAdapter.ViewHolder>(DiffCallback) {
+class SectionAdapter(val context: Context, val onItemClickListener: (Movie) -> Unit) : ListAdapter<Section, SectionAdapter.ViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<Section>() {
         override fun areItemsTheSame(oldItem: Section, newItem: Section): Boolean {
@@ -62,7 +62,7 @@ class SectionAdapter(val context: Context) : ListAdapter<Section, SectionAdapter
             }
 
             movieRecycler.layoutManager = LinearLayoutManager(context)
-            val movieAdapter = MovieAdapter()
+            val movieAdapter = MovieAdapter(onItemClickListener)
             movieRecycler.adapter = movieAdapter
             movieAdapter.submitList(section.movieList)
         }

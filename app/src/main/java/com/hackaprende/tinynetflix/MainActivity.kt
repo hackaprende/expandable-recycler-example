@@ -2,6 +2,7 @@ package com.hackaprende.tinynetflix
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -12,7 +13,9 @@ class MainActivity : AppCompatActivity() {
 
         val recycler = findViewById<RecyclerView>(R.id.section_recycler)
         recycler.layoutManager = LinearLayoutManager(this)
-        val sectionAdapter = SectionAdapter(this)
+        val sectionAdapter = SectionAdapter(this) {
+            Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
+        }
         recycler.adapter = sectionAdapter
 
         sectionAdapter.submitList(downloadFakeMovies())
