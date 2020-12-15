@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.hackaprende.tinynetflix.databinding.SectionListItemBinding
 
 class SectionAdapter(val context: Context, val onItemClickListener: (Movie) -> Unit) : ListAdapter<Section, SectionAdapter.ViewHolder>(DiffCallback) {
 
@@ -23,9 +24,8 @@ class SectionAdapter(val context: Context, val onItemClickListener: (Movie) -> U
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.section_list_item, parent,
-            false)
-        return ViewHolder(view)
+        val binding = SectionListItemBinding.inflate(LayoutInflater.from(parent.context))
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -33,37 +33,33 @@ class SectionAdapter(val context: Context, val onItemClickListener: (Movie) -> U
         holder.bind(section)
     }
 
-    inner class ViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
-
-        private val sectionNameText = view.findViewById<TextView>(R.id.section_name_text)
-        private val movieRecycler = view.findViewById<RecyclerView>(R.id.movie_recycler)
-
+    inner class ViewHolder(private val binding: SectionListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(section: Section) {
-            sectionNameText.text = section.name
+            binding.sectionNameText.text = section.name
 
-            sectionNameText.setOnClickListener {
+            binding.sectionNameText.setOnClickListener {
                 if (section.expanded) {
-                    sectionNameText
+                    binding.sectionNameText
                             .setCompoundDrawablesWithIntrinsicBounds(
                                     R.drawable.ic_baseline_arrow_drop_down_24,
                                     0, 0, 0
                             )
-                    movieRecycler.visibility = View.GONE
+                    binding.movieRecycler.visibility = View.GONE
                 } else {
-                    sectionNameText
+                    binding.sectionNameText
                             .setCompoundDrawablesWithIntrinsicBounds(
                                     R.drawable.ic_baseline_arrow_drop_up_24,
                                     0, 0, 0
                             )
-                    movieRecycler.visibility = View.VISIBLE
+                    binding.movieRecycler.visibility = View.VISIBLE
                 }
 
                 section.expanded = !section.expanded
             }
 
-            movieRecycler.layoutManager = LinearLayoutManager(context)
+            binding.movieRecycler.layoutManager = LinearLayoutManager(context)
             val movieAdapter = MovieAdapter(onItemClickListener)
-            movieRecycler.adapter = movieAdapter
+            binding.movieRecycler.adapter = movieAdapter
             movieAdapter.submitList(section.movieList)
         }
     }

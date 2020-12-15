@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.hackaprende.tinynetflix.databinding.MovieListItemBinding
 
 class MovieAdapter(val onItemClickListener: (Movie) -> Unit) : ListAdapter<Movie, MovieAdapter.ViewHolder>(
         DiffCallback
@@ -23,9 +24,8 @@ class MovieAdapter(val onItemClickListener: (Movie) -> Unit) : ListAdapter<Movie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent,
-            false)
-        return ViewHolder(view)
+        val binding = MovieListItemBinding.inflate(LayoutInflater.from(parent.context))
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -33,14 +33,11 @@ class MovieAdapter(val onItemClickListener: (Movie) -> Unit) : ListAdapter<Movie
         holder.bind(movie)
     }
 
-    inner class ViewHolder(private val view: View) :
-        RecyclerView.ViewHolder(view) {
-        private val nameText = view.findViewById<TextView>(R.id.movie_name_text)
-
+    inner class ViewHolder(private val binding: MovieListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
-            nameText.text = movie.name
-
-            view.setOnClickListener {
+            binding.movie = movie
+            binding.root.setOnClickListener {
                 onItemClickListener(movie)
             }
         }
