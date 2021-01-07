@@ -7,7 +7,7 @@
 
     </data>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -27,9 +27,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/movie_recycler"
             android:layout_width="match_parent"
+            android:layout_below="@id/section_name_text"
             android:layout_height="wrap_content"
             tools:itemCount="5"
             tools:listitem="@layout/movie_list_item" />
 
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

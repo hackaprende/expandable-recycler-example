@@ -57,7 +57,8 @@ class SectionAdapter(val context: Context, val onItemClickListener: (Movie) -> U
                 section.expanded = !section.expanded
             }
 
-            binding.movieRecycler.layoutManager = LinearLayoutManager(context)
+            binding.movieRecycler.layoutManager = LinearLayoutManager(context,
+                LinearLayoutManager.HORIZONTAL, false)
             val movieAdapter = MovieAdapter(onItemClickListener)
             binding.movieRecycler.adapter = movieAdapter
             movieAdapter.submitList(section.movieList)

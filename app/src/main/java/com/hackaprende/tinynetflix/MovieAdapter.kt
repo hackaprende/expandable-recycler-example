@@ -1,13 +1,12 @@
 package com.hackaprende.tinynetflix
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.hackaprende.tinynetflix.databinding.MovieListItemBinding
+import com.bumptech.glide.Glide
+import com.hackaprende.tinynetflix.databinding.MovieListItemImageBinding
 
 class MovieAdapter(val onItemClickListener: (Movie) -> Unit) : ListAdapter<Movie, MovieAdapter.ViewHolder>(
         DiffCallback
@@ -24,7 +23,7 @@ class MovieAdapter(val onItemClickListener: (Movie) -> Unit) : ListAdapter<Movie
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = MovieListItemBinding.inflate(LayoutInflater.from(parent.context))
+        val binding = MovieListItemImageBinding.inflate(LayoutInflater.from(parent.context))
         return ViewHolder(binding)
     }
 
@@ -33,10 +32,13 @@ class MovieAdapter(val onItemClickListener: (Movie) -> Unit) : ListAdapter<Movie
         holder.bind(movie)
     }
 
-    inner class ViewHolder(private val binding: MovieListItemBinding) :
+    inner class ViewHolder(private val binding: MovieListItemImageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.movie = movie
+
+            Glide.with(binding.movieImage.context).load(movie.url).into(binding.movieImage)
+
             binding.root.setOnClickListener {
                 onItemClickListener(movie)
             }
