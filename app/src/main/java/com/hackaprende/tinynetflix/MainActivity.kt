@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.sectionRecycler.layoutManager = LinearLayoutManager(this)
-        val sectionAdapter = SectionAdapter(this) {
+        val sectionAdapter = SectionAdapter(this, binding.sectionRecycler) {
             Toast.makeText(this, it.name, Toast.LENGTH_SHORT).show()
         }
         binding.sectionRecycler.adapter = sectionAdapter

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.hackaprende.tinynetflix.databinding.SectionListItemBinding
 
-class SectionAdapter(val context: Context, val onItemClickListener: (Movie) -> Unit) : ListAdapter<Section, SectionAdapter.ViewHolder>(DiffCallback) {
+class SectionAdapter(val context: Context, val sectionRecycler: RecyclerView, val onItemClickListener: (Movie) -> Unit) : ListAdapter<Section, SectionAdapter.ViewHolder>(DiffCallback) {
 
     companion object DiffCallback : DiffUtil.ItemCallback<Section>() {
         override fun areItemsTheSame(oldItem: Section, newItem: Section): Boolean {
@@ -62,6 +62,14 @@ class SectionAdapter(val context: Context, val onItemClickListener: (Movie) -> U
             val movieAdapter = MovieAdapter(onItemClickListener)
             binding.movieRecycler.adapter = movieAdapter
             movieAdapter.submitList(section.movieList)
+
+            binding.movieRecycler.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+
+                    sectionRecycler.suppressLayout(newState != RecyclerView.SCROLL_STATE_IDLE)
+                }
+            })
         }
     }
 }
